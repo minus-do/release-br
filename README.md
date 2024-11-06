@@ -18,6 +18,19 @@ my-mvc-app
 ├── package.json           # npm configuration file
 └── README.md              # Project documentation
 ```
+  
+
+## Prerequisites
+
+- Node.js (version 14.x or higher)
+- npm (version 6.x or higher)
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/my-mvc-app.git
+   cd my-mvc-app
 
 ## Installation
 
