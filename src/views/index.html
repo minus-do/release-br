@@ -3,17 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My MVC App</title>
+    <title>My MVC App - Git Commands</title>
     <link rel="stylesheet" href="../public/css/styles.css">
+    <style>
+        .content {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .command {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .highlight {
+            color: #e8491d;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Welcome to My MVC App</h1>
     </header>
     <main>
-        <section>
-            <h2>Main Content</h2>
-            <p>This is the main view of the application.</p>
+        <section class="content">
+            <h2>Git Commands</h2>
+            <p>Here are some useful Git commands for managing tags and branches:</p>
+            <h3>Git Tag</h3>
+            <p>Tags are used to mark specific points in the history as being important. Typically, people use this functionality to mark release points (e.g., v1.0.0).</p>
+            <div class="command">
+                <span class="highlight">Create a new tag:</span><br>
+                <code>git tag -a v1.0.0 -m "Version 1.0.0"</code>
+            </div>
+            <div class="command">
+                <span class="highlight">List all tags:</span><br>
+                <code>git tag</code>
+            </div>
+            <div class="command">
+                <span class="highlight">Push a tag to the remote repository:</span><br>
+                <code>git push origin v1.0.0</code>
+            </div>
+            <h3>Git Branch</h3>
+            <p>Branches are used to develop features, fix bugs, or safely experiment with new ideas in a contained area of your repository.</p>
+            <div class="command">
+                <span class="highlight">Create a new branch:</span><br>
+                <code>git branch feature-branch</code>
+            </div>
+            <div class="command">
+                <span class="highlight">Switch to a branch:</span><br>
+                <code>git checkout feature-branch</code>
+            </div>
+            <div class="command">
+                <span class="highlight">List all branches:</span><br>
+                <code>git branch</code>
+            </div>
+            <div class="command">
+                <span class="highlight">Push a branch to the remote repository:</span><br>
+                <code>git push origin feature-branch</code>
+            </div>
         </section>
     </main>
     <footer>
