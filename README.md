@@ -5,7 +5,7 @@ This is a simple MVC application built with JavaScript. It demonstrates the stru
 ## Project Structure
 
 ```
-my-mvc-app
+RELEASE-BRANCH
 ├── src
 │   ├── controllers        # Contains the controller logic
 │   ├── models             # Contains the data models
