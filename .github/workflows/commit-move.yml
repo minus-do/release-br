@@ -6,6 +6,8 @@ on:
       branch_name:
         type: string
         default: release
+      minor:
+        type: string
 
 jobs:
   get_tags:
@@ -31,10 +33,10 @@ jobs:
 
           # Read the commit hashes from the file
           releaseMajor=1
-          releaseMinor=5100
+          releaseMinor=${{ inputs.minor }}
           releasePatch=0
           release=$releaseMajor.$releaseMinor.$releasePatch
-          echo '' > releases.txt
+          touch releases.txt
           ls -l
           while IFS= read -r commit; do
               echo RELEASE $release
@@ -51,7 +53,9 @@ jobs:
 
           echo "add to release"
           ls -l
+          
           cat releases.txt
+          
           echo read release file
           while IFS= read -r release; do
               gh release create "$release" --title "$release" --latest false
