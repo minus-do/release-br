@@ -31,7 +31,7 @@ jobs:
 
           # Read the commit hashes from the file
           releaseMajor=1
-          releaseMinor=30
+          releaseMinor=300
           releasePatch=0
           release=$releaseMajor.$releaseMinor.$releasePatch
           touch commits.txt
