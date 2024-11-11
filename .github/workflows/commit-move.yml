@@ -25,7 +25,7 @@ jobs:
 
           cat commits.txt
 
-          # git checkout main
+          git checkout origin/main
 
           # Read the commit hashes from the file
           $releaseMajor=1
