@@ -59,9 +59,13 @@ jobs:
           
           echo read release file
 
-          if [[ ! -f releases.txt ]]; then
+          if [[ ! -f reporel.txt ]]; then
               echo "reporel.txt not found!"
               exit 1
+          fi
+
+          if [[ -f reporel.txt ]]; then
+              echo "reporel.txt has been found!"
           fi
           
           # Read the contents of releases.txt and echo each line
