@@ -27,7 +27,9 @@ jobs:
 
           cat commits.txt
 
-          # git checkout main
+          git branch
+
+          echo START
           git config --global user.email "snsinahub@github.com"
           git config --global user.name "${{ github.actor }}"
 
