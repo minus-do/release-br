@@ -5,7 +5,7 @@ on:
     inputs:
       branch_name:
         type: string
-        default: main
+        default: release
 
 jobs:
   get_tags:
