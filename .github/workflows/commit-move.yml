@@ -21,10 +21,10 @@ jobs:
 
       - name: list all commits
         run: |
-          git log --oneline | awk '{print $1}' 
-          git log --oneline -1 | awk '{print $1}'
-          git log
-          git branch
+          git log --oneline | awk '{print $1}' > commits.txt
+
+          cat commits.txt
+          
 
       - name: list all commits main
         run: |
