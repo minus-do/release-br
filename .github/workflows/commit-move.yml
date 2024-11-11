@@ -25,24 +25,27 @@ jobs:
 
           cat commits.txt
 
-          git checkout origin/main
+          git checkout main
 
           # Read the commit hashes from the file
+          $releaseMajor=1
+          $releaseMinor=0
+          $releasePatch=0
+          $release=$releaseMajor.$releaseMinor.$releasePatch
+          touch release.txt
           while IFS= read -r commit; do
               # Check if the commit is part of the release branch
-              if git branch -r --contains "$commit" | grep -q "origin/release"; then
-                  # Check if the commit is not part of the main branch
-                  if ! git branch -r --contains "$commit" | grep -q "origin/main"; then
-                      echo "Moving commit $commit to main branch"
-                      # Cherry-pick the commit to the main branch
-                      git cherry-pick "$commit"
-                  else
-                      echo "Commit $commit is already part of the main branch"
-                  fi
-              else
-                  echo "Commit $commit is not part of the release branch"
-              fi
+              git tag -a "v$release" $commit -m "$commit is part of the $release release"
+              echo $release >> release.txt
+              $releaseMinor=$releaseMinor+1
+              $release=$releaseMajor.$releaseMinor.$releasePatch
+              
           done < commits.txt
+          git push origin --tags
+          
+          while IFS= read -r commit; do
+              gh release create "$commit" --title "$commit" --latest false
+          done < release.txt
 
       - name: list all commits main
         run: |
