@@ -53,6 +53,7 @@ jobs:
 
           echo "add to release"
           ls -l
+          echo "\n" >> releases.txt
           
           cat releases.txt
           
