@@ -44,8 +44,8 @@ jobs:
           done < commits.txt
           git push origin --tags
           
-          while IFS= read -r commit; do
-              gh release create "$commit" --title "$commit" --latest false
+          while IFS= read -r release; do
+              gh release create "$release" --title "$release" --latest false
           done < release.txt
         continue-on-error: true
 
