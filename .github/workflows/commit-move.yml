@@ -36,7 +36,7 @@ jobs:
           releaseMinor=${{ inputs.minor }}
           releasePatch=0
           release=$releaseMajor.$releaseMinor.$releasePatch
-          touch releases.txt
+          touch reporel.txt
           ls -l
           while IFS= read -r commit; do
               echo RELEASE $release
@@ -46,21 +46,21 @@ jobs:
               releaseMinor=$((releaseMinor + 1))
               release=$releaseMajor.$releaseMinor.$releasePatch
               echo AFTER INCREMENT $release
-              echo $release >> releases.txt
+              echo $release >> reporel.txt
           done < commits.txt
           
           git push origin --tags
 
           echo "add to release"
           ls -l
-          echo "\n" >> releases.txt
+          echo "" >> reporel.txt
           
-          cat releases.txt
+          cat reporel.txt
           
           echo read release file
 
           if [[ ! -f releases.txt ]]; then
-              echo "releases.txt not found!"
+              echo "reporel.txt not found!"
               exit 1
           fi
           
@@ -68,7 +68,7 @@ jobs:
           while IFS= read -r line; do
               echo "$line"
               gh release create "$line" --title "$line" --latest false
-          done < releases.txt
+          done < reporel.txt
           
         continue-on-error: true
         env:
