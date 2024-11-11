@@ -1,4 +1,4 @@
-name: move commits
+name: cherry picks
 
 on:
   workflow_dispatch:
