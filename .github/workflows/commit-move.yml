@@ -34,6 +34,7 @@ jobs:
           releaseMinor=20
           releasePatch=0
           release=$releaseMajor.$releaseMinor.$releasePatch
+          touch commits.txt
           touch release.txt
           while IFS= read -r commit; do
               echo RELEASE $release
@@ -47,6 +48,9 @@ jobs:
           done < commits.txt
           
           git push origin --tags
+
+          echo "add to release"
+          cat release.txt
           
           while IFS= read -r release; do
               gh release create "$release" --title "$release" --latest false
