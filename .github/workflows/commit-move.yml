@@ -21,5 +21,11 @@ jobs:
       - name: list all commits
         run: |
           git log --oneline | awk '{print $1}' 
-          
+          git log --oneline -1 | awk '{print $1}'
+          git log
+          git branch
+
+          git checkout main
+          git log --oneline -1 | awk '{print $1}'
+          git log --oneline | awk '{print $1}'
           
