@@ -26,6 +26,8 @@ jobs:
           cat commits.txt
 
           # git checkout main
+          git config --global user.email "snsinahub@github.com"
+          git config --global user.name "${{ github.actor }}"
 
           # Read the commit hashes from the file
           releaseMajor=1
@@ -42,8 +44,7 @@ jobs:
               release=$releaseMajor.$releaseMinor.$releasePatch
               
           done < commits.txt
-          git config --global user.email "snsinahub@github.com"
-          git config --global user.name "${{ github.actor }}"
+          
           git push origin --tags
           
           while IFS= read -r release; do
