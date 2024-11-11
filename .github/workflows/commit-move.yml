@@ -1,0 +1,25 @@
+name: move commits
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        type: string
+        default: main
+
+jobs:
+  get_tags:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch_name }}
+          token: ${{ secrets.MY_PAT }}
+
+      - name: list all commits
+        run: |
+          git log --oneline | awk '{print $1}' 
+          
+          
