@@ -17,6 +17,7 @@ jobs:
         with:
           ref: ${{ inputs.branch_name }}
           token: ${{ secrets.MY_PAT }}
+          fetch-depth: 0
 
       - name: list all commits
         run: |
@@ -25,7 +26,10 @@ jobs:
           git log
           git branch
 
+      - name: list all commits main
+        run: |
           git checkout main
           git log --oneline -1 | awk '{print $1}'
           git log --oneline | awk '{print $1}'
+        continue-on-error: true
           
