@@ -72,6 +72,7 @@ jobs:
           while IFS= read -r line; do
               echo "$line"
               # gh release create "$line" --title "$line" --latest false
+              gh release create $line --latest=false 
           done < reporel.txt
           
         continue-on-error: true
