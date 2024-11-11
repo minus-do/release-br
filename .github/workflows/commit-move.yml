@@ -44,7 +44,7 @@ jobs:
               echo RELEASE $release
               echo $commit
               # Check if the commit is part of the release branch
-              git tag -a -f $release $commit
+              git tag -a -f $release $commit -m "$release-$commit"
               
               releaseMinor=$((releaseMinor + 1))
               release=$releaseMajor.$releaseMinor.$releasePatch
