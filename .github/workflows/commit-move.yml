@@ -25,15 +25,23 @@ jobs:
 
           cat commits.txt
 
+          git checkout main
+
+          # Read the commit hashes from the file
           while IFS= read -r commit; do
-            # Find the branches containing the commit
-            branches=$(git branch -r --contains "$commit")
-            
-            # Print the commit and the branches
-            echo "Commit: $commit"
-            echo "Branches:"
-            echo "$branches"
-            echo "----------------------"
+              # Check if the commit is part of the release branch
+              if git branch -r --contains "$commit" | grep -q "origin/release"; then
+                  # Check if the commit is not part of the main branch
+                  if ! git branch -r --contains "$commit" | grep -q "origin/main"; then
+                      echo "Moving commit $commit to main branch"
+                      # Cherry-pick the commit to the main branch
+                      git cherry-pick "$commit"
+                  else
+                      echo "Commit $commit is already part of the main branch"
+                  fi
+              else
+                  echo "Commit $commit is not part of the release branch"
+              fi
           done < commits.txt
 
       - name: list all commits main
