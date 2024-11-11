@@ -41,15 +41,17 @@ jobs:
           touch reporel.txt
           ls -l
           while IFS= read -r commit; do
+              
               echo RELEASE $release
               echo $commit
               # Check if the commit is part of the release branch
               git tag -a -f $release $commit -m "$release-$commit"
               
-              releaseMinor=$((releaseMinor + 1))
-              release=$releaseMajor.$releaseMinor.$releasePatch
+              
               echo AFTER INCREMENT $release
               echo $release >> reporel.txt
+              releaseMinor=$((releaseMinor + 1))
+              release=$releaseMajor.$releaseMinor.$releasePatch
           done < commits.txt
           
           git push origin --tags
