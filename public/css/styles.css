@@ -1,10 +1,4 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-
+/* Header styles */
 header {
     background: #35424a;
     color: #ffffff;
@@ -16,12 +10,14 @@ h1 {
     margin: 0;
 }
 
+/* Container styles */
 .container {
     width: 80%;
     margin: auto;
     overflow: hidden;
 }
 
+/* Footer styles */
 footer {
     background: #35424a;
     color: #ffffff;
@@ -29,9 +25,9 @@ footer {
     padding: 10px 0;
     position: relative;
     bottom: 0;
-    width: 100%;
 }
 
+/* Button styles */
 .button {
     display: inline-block;
     font-size: 16px;
@@ -44,4 +40,26 @@ footer {
 
 .button:hover {
     background: #c0392b;
+}
+
+/* Content styles */
+.content {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Command styles */
+.command {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    font-family: monospace;
+}
+
+/* Highlight styles */
+.highlight {
+    color: #e8491d;
 }
