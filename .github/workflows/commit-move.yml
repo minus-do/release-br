@@ -31,7 +31,7 @@ jobs:
 
           # Read the commit hashes from the file
           releaseMajor=1
-          releaseMinor=500
+          releaseMinor=5000
           releasePatch=0
           release=$releaseMajor.$releaseMinor.$releasePatch
           echo '' > release.txt
