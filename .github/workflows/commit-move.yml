@@ -40,7 +40,7 @@ jobs:
               # Check if the commit is part of the release branch
               git tag -a "v$release" $commit -m "$commit is part of the $release release"
               echo $release >> release.txt
-              releaseMinor++
+              releaseMinor=$((releaseMinor + 1))
               release=$releaseMajor.$releaseMinor.$releasePatch
               echo AFTER INCREMENT $release
           done < commits.txt
