@@ -34,7 +34,7 @@ jobs:
             echo "Branches:"
             echo "$branches"
             echo "----------------------"
-          done < commit.txt
+          done < commits.txt
 
       - name: list all commits main
         run: |
