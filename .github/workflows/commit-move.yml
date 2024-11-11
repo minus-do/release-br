@@ -42,6 +42,8 @@ jobs:
               release=$releaseMajor.$releaseMinor.$releasePatch
               
           done < commits.txt
+          git config --global user.email "snsinahub@github.com"
+          git config --global user.name "${{ github.actor }}"
           git push origin --tags
           
           while IFS= read -r release; do
