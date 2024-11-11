@@ -40,9 +40,9 @@ jobs:
               # Check if the commit is part of the release branch
               git tag -a "v$release" $commit -m "$commit is part of the $release release"
               echo $release >> release.txt
-              releaseMinor=$releaseMinor+1
+              releaseMinor++
               release=$releaseMajor.$releaseMinor.$releasePatch
-              
+              echo AFTER INCREMENT $release
           done < commits.txt
           
           git push origin --tags
@@ -51,6 +51,8 @@ jobs:
               gh release create "$release" --title "$release" --latest false
           done < release.txt
         continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.MY_PAT }}
 
       - name: list all commits main
         run: |
