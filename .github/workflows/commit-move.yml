@@ -31,11 +31,11 @@ jobs:
 
           # Read the commit hashes from the file
           releaseMajor=1
-          releaseMinor=300
+          releaseMinor=500
           releasePatch=0
           release=$releaseMajor.$releaseMinor.$releasePatch
-          touch commits.txt
-          touch release.txt
+          echo '' > release.txt
+          ls -l
           while IFS= read -r commit; do
               echo RELEASE $release
               # Check if the commit is part of the release branch
