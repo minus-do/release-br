@@ -31,7 +31,7 @@ jobs:
 
           # Read the commit hashes from the file
           releaseMajor=1
-          releaseMinor=0
+          releaseMinor=20
           releasePatch=0
           release=$releaseMajor.$releaseMinor.$releasePatch
           touch release.txt
@@ -39,10 +39,11 @@ jobs:
               echo RELEASE $release
               # Check if the commit is part of the release branch
               git tag -a "v$release" $commit -m "$commit is part of the $release release"
-              echo $release >> release.txt
+              
               releaseMinor=$((releaseMinor + 1))
               release=$releaseMajor.$releaseMinor.$releasePatch
               echo AFTER INCREMENT $release
+              echo $release >> release.txt
           done < commits.txt
           
           git push origin --tags
