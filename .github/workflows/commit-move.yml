@@ -50,8 +50,9 @@ jobs:
           git push origin --tags
 
           echo "add to release"
+          ls -l
           cat release.txt
-          
+          echo read release file
           while IFS= read -r release; do
               gh release create "$release" --title "$release" --latest false
           done < release.txt
