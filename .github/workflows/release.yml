@@ -34,9 +34,10 @@ jobs:
       - name: create a new release based on tag
         if: ${{ inputs.update-release == 'true' }}
         run: |
-          gh release edit ${{ inputs.tag }} --title ${{ inputs.release-new-version}} --latest ${{ inputs.set-latest }}
+          gh release edit ${{ inputs.tag }} --title "${{ inputs.release-new-version }}" --latest ${{ inputs.set-latest }}
+
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.MY_PAT }}
 
 
       - name: modify a release
