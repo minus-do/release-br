@@ -1,0 +1,39 @@
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        type: string
+      update-release:
+        type: choice
+        default: false
+        options:
+          - 'true'
+          - 'false'
+      release-new-version:
+        type: string
+        default: ''
+        required: false
+      set-latest:
+        type: choice
+        default: false
+        options:
+          - 'true'
+          - 'false'
+
+    
+     
+
+jobs:
+  update-create-release:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: create a new release based on tag
+        if: ${{ inputs.update-release == 'false' }}
+        run: |
+          gh release edit ${{ inputs.tag }} --title ${{ inputs.release-new-version}} --latest ${{ inputs.set-latest }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
