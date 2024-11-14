@@ -32,7 +32,7 @@ jobs:
     steps:
 
       - name: create a new release based on tag
-        if: ${{ inputs.update-release == 'false' }}
+        if: ${{ inputs.update-release == 'true' }}
         run: |
           gh release edit ${{ inputs.tag }} --title ${{ inputs.release-new-version}} --latest ${{ inputs.set-latest }}
         env:
@@ -40,7 +40,7 @@ jobs:
 
 
       - name: modify a release
-        if: ${{ inputs.update-release == 'true' }}
+        if: ${{ inputs.update-release == 'false' }}
         run: |
           gh release create ${{ inputs.tag }} --title ${{ inputs.tag }} --latest false
         env:
