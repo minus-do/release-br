@@ -9,18 +9,18 @@ on:
         type: choice
         default: false
         options:
-          - 'true'
-          - 'false'
+          - true
+          - false
       release-new-version:
         type: string
-        default: ''
+        default: null
         required: false
       set-latest:
         type: choice
         default: false
         options:
-          - 'true'
-          - 'false'
+          - true
+          - false
 
     
      
@@ -36,4 +36,10 @@ jobs:
         run: |
           gh release edit ${{ inputs.tag }} --title ${{ inputs.release-new-version}} --latest ${{ inputs.set-latest }}
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: modify a release
+        if: ${{ inputs.update-release == 'true' }}
+        run: |
+          gh release create ${{ inputs.tag }} --title ${{ inputs.tag }} --latest false
