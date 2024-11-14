@@ -13,7 +13,7 @@ on:
           - 'false'
       release-new-version:
         type: string
-        default: null
+        default: ''
         required: false
       set-latest:
         type: choice
@@ -43,3 +43,5 @@ jobs:
         if: ${{ inputs.update-release == 'true' }}
         run: |
           gh release create ${{ inputs.tag }} --title ${{ inputs.tag }} --latest false
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
