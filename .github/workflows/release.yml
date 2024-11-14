@@ -36,6 +36,7 @@ jobs:
       - name: create a new release based on tag
         if: ${{ inputs.update-release == 'true' }}
         run: |
+          gh release view ${{ inputs.tag }} --json 
           release_id=$(gh release view ${{ inputs.tag }} --json id --jq '.id')
           echo $release_id ${{ github.repository }} ${{ inputs.tag }} ${{ inputs.release-new-version }}
           gh api \
