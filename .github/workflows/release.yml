@@ -9,8 +9,8 @@ on:
         type: choice
         default: false
         options:
-          - true
-          - false
+          - 'true'
+          - 'false'
       release-new-version:
         type: string
         default: null
@@ -19,8 +19,8 @@ on:
         type: choice
         default: false
         options:
-          - true
-          - false
+          - 'true'
+          - 'false'
 
     
      
