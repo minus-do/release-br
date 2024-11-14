@@ -30,7 +30,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
+      - name: checkout
+        uses: actions/checkout@v4
+        
       - name: create a new release based on tag
         if: ${{ inputs.update-release == 'true' }}
         run: |
