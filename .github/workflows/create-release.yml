@@ -30,6 +30,21 @@ jobs:
 
           cat commits.txt
 
+          echo '' > release_commits.txt
+
+          # Read the commit SHAs from commits.txt and check if they belong to the release branch
+          while IFS= read -r sha; do
+              if git branch --contains "$sha" | grep -q "release"; then
+                  echo "$sha belongs to the release branch"
+                  echo "$sha" >> release_commits.txt
+              else
+                  echo "$sha does not belong to the release branch"
+              fi
+          done < commits.txt
+
+          echo "=================================="
+          cat release_commits.txt
+
           # git branch
 
           # echo START
