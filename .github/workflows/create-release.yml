@@ -34,6 +34,12 @@ jobs:
           echo 'CREATE RELEASES FROM TAGS'
 
           jq -c '.[]' tags_and_shas.json | while IFS= read -r tag_sha; do
+              echo "TAG SHA:" $tag_sha
+              if jq -e . >/dev/null 2>&1 <<<"$tag_sha"; then
+                  echo "Parsed JSON successfully and got something other than false/null"
+              else
+                  echo "Failed to parse JSON, or got false/null"
+              fi
               tag=$(echo "$tag_sha" | jq -r '.tag')
               sha=$(echo "$tag_sha" | jq -r '.sha')
               echo '===================================='
