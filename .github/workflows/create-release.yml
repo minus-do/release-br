@@ -55,6 +55,8 @@ jobs:
             if [ -z "$response" ] || [ "$response" == "[]" ]; then
               break
             fi
+
+            echo RESPONSE $response
           
             # Append the response to the tags_and_shas.json file
             echo "$response" | jq -c '.[] | {sha: .commit.sha, tag: .name}' >> tags_and_shas2.json
