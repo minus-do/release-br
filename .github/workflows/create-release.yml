@@ -52,12 +52,13 @@ jobs:
               /repos/${{ github.repository }}/tags?per_page=100&page=$page > tmp.txt
 
             
-            response=`cat tmp.txt`
+            response=$(cat tmp.txt)
 
             echo "/repos/${{ github.repository }}/tags?per_page=100&page=$page"
           
             # Check if the response is empty
             if [ -z "$response" ] || [ "$response" == "[]" ]; then
+              echo "BREAK"
               break
             fi
 
