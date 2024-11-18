@@ -54,7 +54,7 @@ jobs:
                   # Create a release with the name matching the tag
                   echo "gh release create $tag --target $sha --title $release_name --notes Release for $release_name --latest false"
                   echo "gh release create $release_name --target $sha --title $release_name --notes Release for $release_name --latest false"
-                  gh release create $tag --target $sha --title "$release_name" --notes "Release for $release_name" --latest false
+                  gh release create $release_name --target $sha --title $release_name --notes Release for $release_name
               else
                   echo "$sha does not belong to the release branch (tag: $tag)"
               fi
