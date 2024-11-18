@@ -31,10 +31,14 @@ jobs:
 
           cat tags_and_shas.json
 
+          echo 'CREATE RELEASES FROM TAGS'
+
           jq -c '.[]' tags_and_shas.json | while IFS= read -r tag_sha; do
               tag=$(echo "$tag_sha" | jq -r '.tag')
               sha=$(echo "$tag_sha" | jq -r '.sha')
+              echo '===================================='
               release_name=$(echo "$tag" | sed 's|refs/tags/||')
+              echo "RELEASE NAME:" $release_name
               if git branch --contains "$sha" | grep -q "release"; then
                   echo "$sha belongs to the release branch (tag: $tag)"
                   echo "$sha" >> release_commits.txt
