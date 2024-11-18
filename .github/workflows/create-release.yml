@@ -52,7 +52,7 @@ jobs:
                   echo "$sha belongs to the release branch (tag: $tag)"
                   echo "$sha" >> release_commits.txt
                   # Create a release with the name matching the tag
-                  gh release create "$release_name" --tag "$tag" --target "$sha" --title "$release_name" --notes "Release for $release_name" --latest false
+                  gh release create "$release_name" --target "$sha" --title "$release_name" --notes "Release for $release_name" --latest false
               else
                   echo "$sha does not belong to the release branch (tag: $tag)"
               fi
