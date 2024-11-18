@@ -30,6 +30,8 @@ jobs:
             -H "X-GitHub-Api-Version: 2022-11-28" \
             /repos/${{ github.repository }}/git/matching-ref/tags > tags.json
 
+          echo "second"
+
           echo '' > tags_and_shas2.json
 
           # Initialize page number
