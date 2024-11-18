@@ -30,10 +30,30 @@ jobs:
             -H "X-GitHub-Api-Version: 2022-11-28" \
             /repos/${{ github.repository }}/git/matching-ref/tags > tags.json
 
-          gh api \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/${{ github.repository }}/tags > pure-tags.json
+          echo '' > tags_and_shas2.json
+
+          # Initialize page number
+          page=1
+          
+          # Loop to fetch all pages
+          while true; do
+            echo "Fetching page $page"
+            response=$(gh api \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "/repos/minus-do/release-br/tags?per_page=100&page=$page")
+          
+            # Check if the response is empty
+            if [ -z "$response" ] || [ "$response" == "[]" ]; then
+              break
+            fi
+          
+            # Append the response to the tags_and_shas.json file
+            echo "$response" | jq -c '.[] | {sha: .commit.sha, tag: .name}' >> tags_and_shas2.json
+          
+            # Increment the page number
+            page=$((page + 1))
+          done
 
           gh api \
             -H "Accept: application/vnd.github+json" \
@@ -59,8 +79,8 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: pure-tags
-          path: pure-tags.json
+          name: tags_and_shas2
+          path: tags_and_shas2.json
 
           
       - name: list tags and create release
