@@ -43,18 +43,11 @@ jobs:
         run: |
           echo 'CREATE RELEASES FROM TAGS'
 
-          jq -c '.[]' tags_and_shas.json | while IFS= read -r tag_sha; do
-              echo "TAG SHA:" $tag_sha
-              if jq -e . >/dev/null 2>&1 <<<"$tag_sha"; then
-                  echo "Parsed JSON successfully and got something other than false/null"
-              else
-                  echo "Failed to parse JSON, or got false/null"
-              fi
+          while IFS= read -r tag_sha; do
+              echo "Processing: $tag_sha"  # Debugging: Print the raw JSON object
               tag=$(echo "$tag_sha" | jq -r '.tag')
               sha=$(echo "$tag_sha" | jq -r '.sha')
-              echo '===================================='
               release_name=$(echo "$tag" | sed 's|refs/tags/||')
-              echo "RELEASE NAME:" $release_name
               if git branch --contains "$sha" | grep -q "release"; then
                   echo "$sha belongs to the release branch (tag: $tag)"
                   echo "$sha" >> release_commits.txt
@@ -63,7 +56,7 @@ jobs:
               else
                   echo "$sha does not belong to the release branch (tag: $tag)"
               fi
-          done
+          done < tags_and_shas.json
 
           echo '==============================================='
         env:
