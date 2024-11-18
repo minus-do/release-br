@@ -21,7 +21,7 @@ jobs:
           token: ${{ secrets.MY_PAT }}
           fetch-depth: 0
 
-      - name: list all commits
+      - name: list tags and create release
         run: |
 
           gh api \
@@ -31,9 +31,25 @@ jobs:
 
           cat tags_and_shas.json
 
+          jq -c '.[]' tags_and_shas.json | while IFS= read -r tag_sha; do
+              tag=$(echo "$tag_sha" | jq -r '.tag')
+              sha=$(echo "$tag_sha" | jq -r '.sha')
+              release_name=$(echo "$tag" | sed 's|refs/tags/||')
+              if git branch --contains "$sha" | grep -q "release"; then
+                  echo "$sha belongs to the release branch (tag: $tag)"
+                  echo "$sha" >> release_commits.txt
+                  # Create a release with the name matching the tag
+                  gh release create "$release_name" --tag "$release_name" --target "$sha" --title "$release_name" --notes "Release for $release_name"
+              else
+                  echo "$sha does not belong to the release branch (tag: $tag)"
+              fi
+          done
+
           echo '==============================================='
 
-          
+      - name: list all commits
+        if: false
+        run: |
           gh api \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
