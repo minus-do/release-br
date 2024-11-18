@@ -29,7 +29,11 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             /repos/${{ github.repository }}/git/matching-ref/tags > tags.json
+        env:
+          GH_TOKEN: ${{ secrets.MY_PAT }}
 
+      - name: list tags 
+        run: |
           echo "second"
 
           echo '' > tags_and_shas2.json
