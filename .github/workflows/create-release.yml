@@ -27,7 +27,12 @@ jobs:
           gh api \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/${{ github.repository }}/git/matching-refs/tags > tags.json
+            /repos/${{ github.repository }}/git/matching-ref/tags > tags.json
+
+          gh api \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/${{ github.repository }}/tags > pure-tags.json
 
           gh api \
             -H "Accept: application/vnd.github+json" \
@@ -44,12 +49,19 @@ jobs:
           name: tags_and_shas
           path: tags_and_shas.json
 
-      - name: upload artifact
+      - name: upload artifact tags
         uses: actions/upload-artifact@v4
         with:
           name: tags
           path: tags.json
 
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pure-tags
+          path: pure-tags.json
+
+          
       - name: list tags and create release
         run: |
           echo 'CREATE RELEASES FROM TAGS'
