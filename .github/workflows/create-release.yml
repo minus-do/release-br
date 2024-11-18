@@ -21,7 +21,7 @@ jobs:
           token: ${{ secrets.MY_PAT }}
           fetch-depth: 0
 
-      - name: list tags and create release
+      - name: list tags
         run: |
 
           gh api \
@@ -30,7 +30,17 @@ jobs:
             /repos/${{ github.repository }}/git/matching-refs/tags --jq '.[] | {tag: .ref, sha: .object.sha}' > tags_and_shas.json
 
           cat tags_and_shas.json
+        env:
+          GH_TOKEN: ${{ secrets.MY_PAT }}
 
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tags_and_shas
+          path: tags_and_shas.json
+
+      - name: list tags and create release
+        run: |
           echo 'CREATE RELEASES FROM TAGS'
 
           jq -c '.[]' tags_and_shas.json | while IFS= read -r tag_sha; do
