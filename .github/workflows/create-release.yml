@@ -94,8 +94,8 @@ jobs:
 
           while IFS= read -r tag_sha; do
               echo "Processing: $tag_sha"  # Debugging: Print the raw JSON object
-              tag=$(echo "$tag_sha" | jq -r '.tag')
-              sha=$(echo "$tag_sha" | jq -r '.sha')
+              tag=$(echo "$tag_sha" | jq -r '.name')
+              sha=$(echo "$tag_sha" | jq -r '.commit.sha')
               release_name=$(echo "$tag" | sed 's|refs/tags/||')
               if git branch --contains "$sha" | grep -q "release"; then
                   echo "$sha belongs to the release branch (tag: $tag)"
