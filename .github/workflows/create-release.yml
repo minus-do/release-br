@@ -52,17 +52,18 @@ jobs:
               /repos/${{ github.repository }}/tags?per_page=100&page=$page > tmp.txt
 
             
-            response=$(cat tmp.txt)
-
-            echo "/repos/${{ github.repository }}/tags?per_page=100&page=$page"
-          
-            # Check if the response is empty
-            if [ -z "$response" ] || [ "$response" == "[]" ]; then
-              echo "BREAK"
-              break
+            if [ -s diff.txt ]; then
+                    # The file is not-empty.
+                    rm -f empty.txt
+                    touch full.txt
+                    cat tmp.txt >> tags_and_shas2
+                    echo '' > tmp.txt
+            else
+                    echo "BREAK"
+                    break
             fi
-
-            echo RESPONSE $response
+              
+            echo "/repos/${{ github.repository }}/tags?per_page=100&page=$page"
           
             # Append the response to the tags_and_shas.json file
             echo "$response" | jq -c '.[] | {sha: .commit.sha, tag: .name}' >> tags_and_shas2.json
