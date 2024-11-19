@@ -56,7 +56,7 @@ jobs:
                     # The file is not-empty.
                     rm -f empty.txt
                     touch full.txt
-                    cat tmp.txt >> tags_and_shas2
+                    cat tmp.txt >> tags_and_shas2.json
                     echo '' > tmp.txt
             else
                     echo "BREAK"
@@ -64,9 +64,6 @@ jobs:
             fi
               
             echo "/repos/${{ github.repository }}/tags?per_page=100&page=$page"
-          
-            # Append the response to the tags_and_shas.json file
-            echo "$response" | jq -c '.[] | {sha: .commit.sha, tag: .name}' >> tags_and_shas2.json
           
             # Increment the page number
             page=$((page + 1))
@@ -119,7 +116,7 @@ jobs:
               else
                   echo "$sha does not belong to the release branch (tag: $tag)"
               fi
-          done < tags_and_shas.json
+          done < tags_and_shas2.json
 
           echo '==============================================='
         env:
