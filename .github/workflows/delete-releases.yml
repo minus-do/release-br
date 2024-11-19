@@ -30,7 +30,8 @@ jobs:
           echo "Total number of releases: " $number_of_releases
 
           cat rel.txt
-          
+        env:
+          GH_TOKEN: ${{ secrets.MY_PAT }}
 
       - name: delete all releases
         if: ${{ inputs.delete-releases == 'yes' }}
@@ -39,3 +40,5 @@ jobs:
           | while read -r rel; do
               gh release delete -y "$rel"
           done
+        env:
+          GH_TOKEN: ${{ secrets.MY_PAT }}
