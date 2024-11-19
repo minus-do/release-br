@@ -43,10 +43,10 @@ jobs:
 
             echo tmp txt
             cat tmp.txt
-
+            echo end of tmp
             ls -ltr
 
-            if [ "[]" == "$(cat tmp.txt)" ]; then
+            if [ "[]" == "$(cat tmp.txt)" || "" == "$(cat tmp.txt)" ]; then
                   echo "BREAK"
                     break
             else
