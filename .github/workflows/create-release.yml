@@ -52,10 +52,8 @@ jobs:
               /repos/${{ github.repository }}/tags?per_page=100&page=$page > tmp.txt
 
             
-            if [ -s diff.txt ]; then
+            if [ -s tmp.txt ]; then
                     # The file is not-empty.
-                    rm -f empty.txt
-                    touch full.txt
                     cat tmp.txt >> tags_and_shas2.json
                     echo '' > tmp.txt
             else
