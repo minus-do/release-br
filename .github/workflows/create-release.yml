@@ -51,6 +51,9 @@ jobs:
               -H "X-GitHub-Api-Version: 2022-11-28" \
               /repos/${{ github.repository }}/tags?per_page=100&page=$page > tmp.txt
 
+            cat tmp.txt
+
+            ls -ltr
             
             if [ -s tmp.txt ]; then
                     # The file is not-empty.
