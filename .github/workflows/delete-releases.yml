@@ -6,8 +6,8 @@ on:
       delete-releases:
         type: choice
         options:
-          - no
-          - yes
+          - 'no'
+          - 'yes'
       max-number-of-tags:
         type: string
         default: '500'
@@ -33,7 +33,7 @@ jobs:
           
 
       - name: delete all releases
-        if: ${{ inputs.delete-releases == yes }}
+        if: ${{ inputs.delete-releases == 'yes' }}
         run: |
           gh release list --limit ${{ inputs.max-number-of-tags }} | awk '{print $1}' \
           | while read -r rel; do
