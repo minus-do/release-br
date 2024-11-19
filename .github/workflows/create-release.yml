@@ -1,4 +1,4 @@
-name: move commits
+name: create releases
 
 on:
   workflow_dispatch:
@@ -6,8 +6,6 @@ on:
       branch_name:
         type: string
         default: release
-      minor:
-        type: string
 
 jobs:
   get_tags:
@@ -23,8 +21,6 @@ jobs:
 
       - name: list tags 
         run: |
-          echo "second"
-
           echo '' > tags_and_shas2.json
 
           # Initialize page number
@@ -32,7 +28,6 @@ jobs:
           
           # Loop to fetch all pages
 
-          echo "/repos/${{ github.repository }}/tags?per_page=100&page=$page"
           while true; do
             echo "Fetching page $page"
             
@@ -41,10 +36,6 @@ jobs:
               -H "X-GitHub-Api-Version: 2022-11-28" \
               "/repos/${{ github.repository }}/tags?per_page=100&page=$page" --jq '.[] |{ name: .name,sha: .commit.sha }' > tmp.txt
 
-            echo tmp txt
-            cat tmp.txt
-            echo end of tmp
-            ls -ltr
 
             if [ "[]" == "$(cat tmp.txt)" || "" == "$(cat tmp.txt)" ]; then
                   echo "BREAK"
@@ -60,9 +51,6 @@ jobs:
                     echo "BREAK IS EMPTY"
                     break
             fi
-
-              
-            echo "/repos/${{ github.repository }}/tags?per_page=100&page=$page"
           
             # Increment the page number
             page=$((page + 1))
@@ -72,8 +60,6 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             /repos/${{ github.repository }}/git/matching-refs/tags --jq '.[] | {tag: .ref, sha: .object.sha}' > tags_and_shas.json
-
-          cat tags_and_shas.json
         env:
           GH_TOKEN: ${{ secrets.MY_PAT }}
 
@@ -117,14 +103,6 @@ jobs:
                     echo "gh release create $release_name --target $sha --title $release_name"
                     gh release create "$release_name" --target "$sha" --title "$release_name"
                   fi
-                  # if [ "$tag" == null ]; then
-                  #     echo tag is null
-                  # else
-                  #     echo  $tag and $sha are not empty
-                  #     echo "gh release create $release_name --target $sha --title $release_name"
-                  #     gh release create "$release_name" --target "$sha" --title "$release_name"
-                  # fi
-                  
               else
                   echo "$sha does not belong to the release branch (tag: $tag)"
               fi
