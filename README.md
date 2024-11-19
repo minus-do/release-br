@@ -1,63 +1,47 @@
-# My MVC App
+# GitHub Actions Workflows
 
-This is a simple MVC application built with JavaScript. It demonstrates the structure and organization of an MVC application, including controllers, models, views, and public assets.
+## Create Releases Workflow
 
-## Project Structure
+The [`.github/workflows/create-release.yml`](.github/workflows/create-release.yml) workflow is designed to list all tags from a specified branch (e.g., `release`) and create releases based on those tags.
 
-```
-RELEASE-BRANCH
-├── src
-│   ├── controllers        # Contains the controller logic
-│   ├── models             # Contains the data models
-│   ├── views              # Contains the HTML views
-│   └── app.js             # Main entry point of the application
-├── public
-│   ├── css                # Contains the CSS styles
-│   ├── js                 # Contains the client-side JavaScript
-│   └── index.html         # Public entry point for the application
-├── package.json           # npm configuration file
-└── README.md              # Project documentation
-```
-  
+### Usage
 
-## Prerequisites
+1. Navigate to the "Actions" tab in your GitHub repository.
+2. Select the `create-release` workflow.
+3. Click on the "Run workflow" button.
+4. Provide the branch name from which you want to list tags (default is `release`).
+5. Click the "Run workflow" button to start the workflow.
 
-- Node.js (version 14.x or higher)
-- npm (version 6.x or higher)
+This workflow will:
+- List all tags from the specified branch.
+- Create releases based on the listed tags.
 
-## Installation
+## Delete Releases Workflow
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/my-mvc-app.git
-   cd my-mvc-app
+The [`.github/workflows/delete-releases.yml`](.github/workflows/delete-releases.yml) workflow allows you to list all releases and optionally delete them based on the workflow input.
 
-## Installation
+### Usage
 
-1. Clone the repository:
-   ```
-   git clone <repository-url>
-   ```
+1. Navigate to the "Actions" tab in your GitHub repository.
+2. Select the `delete-releases` workflow.
+3. Click on the "Run workflow" button.
+4. Provide the following inputs:
+   - `delete-releases`: Choose `yes` to delete the releases or `no` to only list them.
+   - `max-number-of-tags`: Specify the maximum number of tags to list (default is `500`).
+5. Click the "Run workflow" button to start the workflow.
 
-2. Navigate to the project directory:
-   ```
-   cd my-mvc-app
-   ```
+This workflow will:
+- List all releases up to the specified maximum number of tags.
+- Optionally delete the listed releases if `delete-releases` is set to `yes`.
 
-3. Install the dependencies:
-   ```
-   npm install
-   ```
+### Example
 
-## Usage
+To list all tags from the `release` branch and create releases based on those tags, run the [`.github/workflows/create-release.yml`](.github/workflows/create-release.yml) workflow with the branch name set to `release`.
 
-To start the application, run:
-```
-node src/app.js
-```
+To list all releases without deleting them, run the [`.github/workflows/delete-releases.yml`](.github/workflows/delete-releases.yml) workflow with `delete-releases` set to `no`.
 
-Visit `http://localhost:3000` in your browser to view the application.
+To list and delete all releases, run the [`.github/workflows/delete-releases.yml`](.github/workflows/delete-releases.yml) workflow with `delete-releases` set to `yes`.
 
-## Contributing
-
-Feel free to submit issues or pull requests for improvements or bug fixes.
+For more details, refer to the respective workflow files:
+- [create-release.yml](.github/workflows/create-release.yml)
+- [delete-releases.yml](.github/workflows/delete-releases.yml)
