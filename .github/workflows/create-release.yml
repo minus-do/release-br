@@ -35,16 +35,11 @@ jobs:
           echo "/repos/${{ github.repository }}/tags?per_page=100&page=$page"
           while true; do
             echo "Fetching page $page"
-
-            gh api \
-              -H "Accept: application/vnd.github+json" \
-              -H "X-GitHub-Api-Version: 2022-11-28" \
-              /repos/${{ github.repository }}/tags?per_page=100&page=$page
             
             gh api \
               -H "Accept: application/vnd.github+json" \
               -H "X-GitHub-Api-Version: 2022-11-28" \
-              /repos/${{ github.repository }}/tags?per_page=100&page=$page > tmp.txt
+              "/repos/${{ github.repository }}/tags?per_page=100&page=$page" > tmp.txt
 
             echo tmp txt
             cat tmp.txt
