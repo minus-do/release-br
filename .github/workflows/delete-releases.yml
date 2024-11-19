@@ -26,7 +26,7 @@ jobs:
       - name: list all releases
         run: |
           gh release list --limit ${{ inputs.max-number-of-tags }} | awk '{print $1}' > rel.txt
-          number_of_releases= $( cat rel.txt | wc -l )
+          number_of_releases=$( cat rel.txt | wc -l )
           echo "Total number of releases: " $number_of_releases
 
           cat rel.txt
