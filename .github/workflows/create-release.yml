@@ -116,7 +116,7 @@ jobs:
                   else
                       echo  $tag and $sha are not empty
                       echo "gh release create $release_name --target $sha --title $release_name"
-                      gh release create $release_name --target $sha --title $release_name
+                      gh release create "$release_name" --target "$sha" --title "$release_name"
                   fi
                   
               else
