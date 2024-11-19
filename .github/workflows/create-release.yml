@@ -45,14 +45,13 @@ jobs:
             cat tmp.txt
 
             ls -ltr
-            
-            if [ -s tmp.txt ]; then
+
+            if [ "[]" == "$(cat tmp.txt)" ]; then
+                  echo "BREAK"
+                    break
+            else
                     # The file is not-empty.
                     cat tmp.txt >> tags_and_shas2.json
-                    rm -f tmp.txt
-            else
-                    echo "BREAK"
-                    break
             fi
               
             echo "/repos/${{ github.repository }}/tags?per_page=100&page=$page"
