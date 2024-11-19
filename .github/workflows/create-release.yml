@@ -39,7 +39,7 @@ jobs:
             gh api \
               -H "Accept: application/vnd.github+json" \
               -H "X-GitHub-Api-Version: 2022-11-28" \
-              "/repos/${{ github.repository }}/tags?per_page=100&page=$page" --jq '.[] | { name: .name,sha: .commit.sha }' > tmp.txt
+              "/repos/${{ github.repository }}/tags?per_page=100&page=$page" --jq '.[] | {name: .ref, sha: .commit.sha}' > tmp.txt
 
             echo tmp txt
             cat tmp.txt
@@ -53,6 +53,14 @@ jobs:
                     # The file is not-empty.
                     cat tmp.txt >> tags_and_shas2.json
             fi
+
+            if [ -s tmp.txt ]; then
+                    echo file is not empty
+            else
+                    echo "BREAK IS EMPTY"
+                    break
+            fi
+
               
             echo "/repos/${{ github.repository }}/tags?per_page=100&page=$page"
           
