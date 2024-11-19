@@ -1,0 +1,41 @@
+name: delete releases
+
+on:
+  workflow_dispatch:
+    inputs:
+      delete-releases:
+        type: choice
+        options:
+          - no
+          - yes
+      max-number-of-tags:
+        type: string
+        default: '500'
+
+jobs:
+  delete-releases:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: list all releases
+        run: |
+          gh release list --limit ${{ inputs.max-number-of-tags }} | awk '{print $1}' > rel.txt
+          number_of_releases= $( cat rel.tex | wc -l )
+          echo "Total number of releases: " $number_of_releases
+
+          cat rel.txt
+          
+
+      - name: delete all releases
+        if: ${{ inputs.delete-releases == yes }}
+        run: |
+          gh release list --limit ${{ inputs.max-number-of-tags }} | awk '{print $1}' \
+          | while read -r rel; do
+              gh release delete -y "$rel"
+          done
